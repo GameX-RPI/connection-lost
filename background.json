@@ -1,0 +1,25 @@
+{
+    "Backgrounds" :
+    [
+        {
+            "ImageSrc" : "../../backgrounds/Classroom.jpg",
+            "BgName" : "Classroom"
+        },        
+        {
+            "ImageSrc" : "../../backgrounds/town.jpg",
+            "BgName" : "Town"
+        },
+        {
+            "ImageSrc" : "../../backgrounds/Ocean.jpg",
+            "BgName" : "Ocean"
+        },
+        {
+            "ImageSrc" : "../../backgrounds/Forest.jpg",
+            "BgName" : "Forest"
+        },        
+        {
+            "ImageSrc" : "../../backgrounds/Lost.jpg",
+            "BgName" : "End of Game"
+        }
+    ]
+}

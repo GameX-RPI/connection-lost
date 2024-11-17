@@ -1,0 +1,125 @@
+{
+   "locations": {
+      "backstory": {
+         "bgImage": "../../backgrounds/Classroom.jpg",
+         "cards": [
+            {
+               "depth": -1,
+               "character": "Russell",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Hey Sage, I have this crazy new idea for a game... Do you want to develop it with me?",
+               "response1": "I'm down bro",
+               "response2": "Let's do it"
+            },
+            {
+               "depth": -1,
+               "character": "Backstory",
+               "image_file_path": "../../textures/MainChar.png",
+               "dialogue": "You and Russell spend the next two months developing an intricate video game world in virtual reality...",
+               "response1": "",
+               "response2": ""
+            },
+            {
+               "depth": -1,
+               "character": "Russell",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Check out this new feature I added. I'm telling you, VR is the future of gaming.",
+               "response1": "Cool",
+               "response2": "How does it work?"
+            },
+            {
+               "depth": -1,
+               "character": "friend-name",
+               "image_file_path": "../../textures/MainChar.png",
+               "dialogue": "Something's wrong...",
+               "response1": "...",
+               "response2": "What's happening?"
+            },
+            {
+               "depth": -1,
+               "character": "Backstory",
+               "image_file_path": "../../textures/MainChar.png",
+               "dialogue": "Your game's system malfunctions, trapping you and 'friend-name' in the world of the game.",
+               "response1": "",
+               "response2": ""
+            },
+            {
+               "depth": -1,
+               "character": "Backstory",
+               "image_file_path": "../../textures/MainChar.png",
+               "dialogue": "Russell exists in the game as one of the characters you created. To get home, you must identify them without appearing suspicious to the other NPCs in the game...",
+               "response1": "",
+               "response2": "",
+               "end": "true"
+            }
+         ]
+      },
+      "Town": {
+         "bgImage": "../../backgrounds/town.jpg",
+         "cards": [
+            {
+               "depth": 0,
+               "character": "char1",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Character 1, Scenario 1",
+               "response1": "Yes",
+               "response2": "No",
+               "isEndCard": "No"
+            },
+            {
+               "depth": 0,
+               "character": "char1",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Character 1, Scenario 2",
+               "response1": "Yes",
+               "response2": "No"
+            },
+            {
+               "depth": 0,
+               "character": "char2",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Character 2, Scenario 1",
+               "response1": "Yes",
+               "response2": "No"
+            },
+            {
+               "depth": 0,
+               "character": "char2",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Character 2, Scenario 2",
+               "response1": "Yes",
+               "response2": "No"
+            },
+            {
+               "depth": 0,
+               "character": "char3",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Character 3, Scenario 1",
+               "response1": "Yes",
+               "response2": "No"
+            },
+            {
+               "depth": 0,
+               "character": "char3",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Character 3, Scenario 2",
+               "response1": "Yes",
+               "response2": "No"
+            }
+         ]
+      },
+      "ocean": {
+         "bgImage": "../../backgrounds/Ocean.jpg",
+         "cards": [
+            {
+               "depth": 0,
+               "character": "char2",
+               "dialogue": "......",
+               "response1": "Yes",
+               "response2": "No"
+            }
+         ]
+      }
+   }
+}
+ 
