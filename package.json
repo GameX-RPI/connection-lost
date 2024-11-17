@@ -9,7 +9,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@pixi/assets": "^7.4.2",
     "@pixi/core": "^7.4.2",
@@ -18,5 +17,6 @@
   },
   "devDependencies": {
     "vite": "^5.4.11"
-  }
+  },
+  "description": ""
 }

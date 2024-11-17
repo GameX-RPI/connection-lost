@@ -112,7 +112,7 @@ async function playBackstory(app, CardDeck, characterLevels) {
   
   for (let i = 0; i < backstoryCards.length; i++) {
     const backstoryCard = backstoryCards[i];
-    const card = await Deck.initCard(app, backstoryCard, characterLevels, CardDeck);
+    const card = await Deck.initCard(app, backstoryCard, CardDeck);
     // CardDeck.addChild(card);
   }
 }
@@ -123,13 +123,15 @@ async function gameLoop(app, CardDeck, characterLevels, locationID) {
     const location = locations.Backgrounds[locationID].BgName;
     let availableCards = [];
     for (const [key, value] of characterLevels) {
-      console.log(cards);
       const availableCharacterCards = cards.locations[location].cards.filter(card => card.character === key && card.depth === value);
       availableCards.push(...availableCharacterCards);
     }
-    console.log(availableCards);
+    // console.log(availableCards);
     const cardToPlay = availableCards[Math.floor(Math.random() * availableCards.length)];
-    const card = await Deck.initCard(app, cardToPlay, characterLevels, CardDeck);
+    const card = await Deck.initCard(app, cardToPlay, CardDeck);
+    if (card.choice == 1) {
+      characterLevels.set(card.character, characterLevels.get(card.character) + 1);
+    }
     // CardDeck.addChild(card);
     gameOver++;
   }

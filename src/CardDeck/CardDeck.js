@@ -9,8 +9,14 @@ const Deck = {
    },
    //creates a card
   
-   async initCard(app, cardInfo, characterLevels, CardDeck) {
+   async initCard(app, cardInfo, CardDeck) {
       const card = new PIXI.Container();
+
+      card.depth = cardInfo.depth;
+      card.character = cardInfo.character;
+      card.response1 = cardInfo.response1;
+      card.response2 = cardInfo.response2;
+
       const cardWidth = 300;
       const cardHeight = 400;
       card.width = cardWidth;
@@ -170,7 +176,15 @@ const Deck = {
             if (Math.abs(card.x) > 150) {
                // Swipe left or right
                const direction = card.x > 0 ? 1 : -1;
-               Deck.animateSwipeOff(app, card, direction, overlay, characterLevels);
+               Deck.animateSwipeOff(app, card, direction, overlay);
+
+               if (direction < 0) {
+                  card.choice = 1;
+               }
+               else {
+                  card.choice = 2;
+               }
+               // console.log(card);
                resolve(card);
             } else {
                // Return to center if swipe wasn't strong enough
@@ -179,10 +193,8 @@ const Deck = {
             }
          });
       });
-
-      return card;
    },
-   animateSwipeOff(app, card, direction, overlay, characterLevels) {
+   animateSwipeOff(app, card, direction, overlay) {
       const targetX = direction > 0 ? app.screen.width + card.width : app.screen.width - card.width;
       const targetRotation = direction > 0 ? 0.3 : -0.3; // Tilt angle (in radians)
       const swipeSpeed = 10;
@@ -204,17 +216,6 @@ const Deck = {
             app.stage.removeChild(card);
             app.stage.removeChild(overlay);
             // Optionally, create a new card or trigger an event here
-         }
-
-         //update characterLevels
-         let choice;
-         if (direction < 0) {
-            choice = card.response1;
-            console.log(characterLevels);
-            characterLevels[card.character]++;
-         }
-         else {
-            choice = card.response2;
          }
       });
    },

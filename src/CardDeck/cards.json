@@ -64,7 +64,7 @@
                "dialogue": "Character 1, Scenario 1",
                "response1": "Yes",
                "response2": "No",
-               "isEndCard": "No"
+               "choice": 0
             },
             {
                "depth": 0,
@@ -72,7 +72,8 @@
                "image_file_path": "../../textures/LostFriend.png",
                "dialogue": "Character 1, Scenario 2",
                "response1": "Yes",
-               "response2": "No"
+               "response2": "No",
+               "choice": 0
             },
             {
                "depth": 0,
@@ -80,7 +81,8 @@
                "image_file_path": "../../textures/LostFriend.png",
                "dialogue": "Character 2, Scenario 1",
                "response1": "Yes",
-               "response2": "No"
+               "response2": "No",
+               "choice": 0
             },
             {
                "depth": 0,
@@ -88,7 +90,8 @@
                "image_file_path": "../../textures/LostFriend.png",
                "dialogue": "Character 2, Scenario 2",
                "response1": "Yes",
-               "response2": "No"
+               "response2": "No",
+               "choice": 0
             },
             {
                "depth": 0,
@@ -96,7 +99,8 @@
                "image_file_path": "../../textures/LostFriend.png",
                "dialogue": "Character 3, Scenario 1",
                "response1": "Yes",
-               "response2": "No"
+               "response2": "No",
+               "choice": 0
             },
             {
                "depth": 0,
@@ -104,7 +108,8 @@
                "image_file_path": "../../textures/LostFriend.png",
                "dialogue": "Character 3, Scenario 2",
                "response1": "Yes",
-               "response2": "No"
+               "response2": "No",
+               "choice": 0
             }
          ]
       },
