@@ -64,7 +64,9 @@
                "dialogue": "Character 1, Scenario 1",
                "response1": "Yes",
                "response2": "No",
-               "choice": 0
+               "choice": 0,
+               "result1": -1,
+               "result2": 2
             },
             {
                "depth": 0,
@@ -73,7 +75,9 @@
                "dialogue": "Character 1, Scenario 2",
                "response1": "Yes",
                "response2": "No",
-               "choice": 0
+               "choice": 0,
+               "result1": -3,
+               "result2": -1
             },
             {
                "depth": 0,
@@ -82,7 +86,9 @@
                "dialogue": "Character 2, Scenario 1",
                "response1": "Yes",
                "response2": "No",
-               "choice": 0
+               "choice": 0,
+               "result1": -1,
+               "result2": 3
             },
             {
                "depth": 0,
@@ -91,7 +97,9 @@
                "dialogue": "Character 2, Scenario 2",
                "response1": "Yes",
                "response2": "No",
-               "choice": 0
+               "choice": 0,
+               "result1": -1,
+               "result2": 1
             },
             {
                "depth": 0,
@@ -100,7 +108,9 @@
                "dialogue": "Character 3, Scenario 1",
                "response1": "Yes",
                "response2": "No",
-               "choice": 0
+               "choice": 0,
+               "result1": 1,
+               "result2": -1
             },
             {
                "depth": 0,
@@ -109,7 +119,9 @@
                "dialogue": "Character 3, Scenario 2",
                "response1": "Yes",
                "response2": "No",
-               "choice": 0
+               "choice": 0,
+               "result1": -1,
+               "result2": 2
             }
          ]
       },

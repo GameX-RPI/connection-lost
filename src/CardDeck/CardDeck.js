@@ -16,6 +16,8 @@ const Deck = {
       card.character = cardInfo.character;
       card.response1 = cardInfo.response1;
       card.response2 = cardInfo.response2;
+      card.result1 = cardInfo.result1;
+      card.result2 = cardInfo.result2;
 
       const cardWidth = 300;
       const cardHeight = 400;
@@ -37,7 +39,7 @@ const Deck = {
       overlay.visible = false;
       app.stage.addChild(overlay);
 
-      const content = new PIXI.Text({ text: cardInfo.dialogue, style: { fontSize: 12, fill: 0x000000, wordWrap: true, wordWrapWidth: 200, align: "center" } });
+      const content = new PIXI.Text({ text: cardInfo.dialogue, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 200, align: "center" } });
 
       content.x = app.screen.width / 2 - content.width / 2;
       content.y = app.screen.height / 2 - content.height / 2 - 150;
@@ -52,6 +54,7 @@ const Deck = {
       /* *** */
 
       let startX = 0;
+      let startY = 0;
       let isDragging = false;
       card.interactive = true;
 
@@ -65,9 +68,9 @@ const Deck = {
          app.canvas.style.cursor = 'default';
       });
 
-
       card.on('pointerdown', (event) => {
          startX = event.global.x;
+         startY = event.global.y;
          isDragging = true;
 
          overlay.visible = true;
@@ -82,9 +85,12 @@ const Deck = {
       card.on('pointermove', (event) => {
          if (!isDragging) return;
          const deltaX = event.global.x - startX;
+         const deltaY = event.global.y - startY;
          card.x += deltaX;
+         card.y += deltaY;
 
          startX = event.global.x;
+         startY = event.global.y;
          const direction = card.x > 0 ? 1 : -1;
 
          if (Math.abs(card.x) > 50) {
@@ -234,6 +240,7 @@ const Deck = {
          card.removeChild(childText);
       }
       const startX = card.x;
+      const startY = card.y;
       const startRotation = card.rotation;
       const duration = 15;
       let frame = 0;
@@ -241,11 +248,13 @@ const Deck = {
       app.ticker.add(function reset() {
          frame += 1;
          card.x = startX + (0 - startX) * (frame / duration);
+         card.y = startY + (0 - startY) * (frame / duration);
          card.rotation = startRotation * (1 - frame / duration);
 
          if (frame >= duration) {
             app.ticker.remove(reset);
             card.x = 0;
+            card.y = 0;
             card.rotation = 0;
          }
       });

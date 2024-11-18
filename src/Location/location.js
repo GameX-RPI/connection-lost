@@ -9,5 +9,10 @@ export async function initBg(app, id) {
     const bg = PIXI.Sprite.from(background);
     bg.width = app.screen.width;
     bg.height = app.screen.height;
+    bg.alpha = 0;
     app.stage.addChild(bg);
+    app.ticker.add(() => {
+        bg.alpha += 0.01;
+        if (bg.alpha == 1) { return; }
+    });
 }

@@ -93,17 +93,22 @@ import locations from '../background.json' assert { type: 'json' };
     
     const CardDeck = Deck.initCardDeck();
     app.stage.addChild(CardDeck);
-    const characterLevels = new Map()
-      .set('char1', 0)
-      .set('char2', 0)
-      .set('char3', 0)
 
-    await playBackstory(app, CardDeck, characterLevels);
-    gameLoop(app, CardDeck, characterLevels, 1);
+    const characterDepth = new Map()
+      .set("char1", 0)
+      .set("char2", 0)
+      .set("char3", 0)
+
+    const trustLevels = new Map();
+    
+    // const lostFriend = "";
+
+    await playBackstory(app, CardDeck);
+    gameLoop(app, CardDeck, characterDepth, trustLevels, 1);
   });
 })();
 
-async function playBackstory(app, CardDeck, characterLevels) {
+async function playBackstory(app, CardDeck) {
   CardDeck.visible = true;
   // let deck_name = "";
   
@@ -117,21 +122,25 @@ async function playBackstory(app, CardDeck, characterLevels) {
   }
 }
 
-async function gameLoop(app, CardDeck, characterLevels, locationID) {
+async function gameLoop(app, CardDeck, characterDepth, trustLevels, locationID) {
   let gameOver = 0;
-  while (gameOver != 2) {
+  await initBg(app, locationID);
+  while (gameOver != 10) {
     const location = locations.Backgrounds[locationID].BgName;
     let availableCards = [];
-    for (const [key, value] of characterLevels) {
+    for (const [key, value] of characterDepth) {
       const availableCharacterCards = cards.locations[location].cards.filter(card => card.character === key && card.depth === value);
       availableCards.push(...availableCharacterCards);
     }
     // console.log(availableCards);
     const cardToPlay = availableCards[Math.floor(Math.random() * availableCards.length)];
     const card = await Deck.initCard(app, cardToPlay, CardDeck);
-    if (card.choice == 1) {
-      characterLevels.set(card.character, characterLevels.get(card.character) + 1);
-    }
+
+    characterDepth.set(card.character, characterDepth.get(card.character) + 1); // +1 character interaction
+
+    const res = card.choice == 1 ? card.result1 : card.result2;
+    trustLevels.set(card.character, (trustLevels.get(card.character) || 0) + res); // +/- character trust
+
     // CardDeck.addChild(card);
     gameOver++;
   }
