@@ -8,6 +8,8 @@ import { initPlayButtonContainer } from './StartContainer/PlayButton/PlayButtonC
 import { initPlayButton } from './StartContainer/PlayButton/PlayButton.js';
 import { initPlayText } from './StartContainer/PlayButton/PlayText.js';
 
+import { initInfo } from './CardDeck/cardInfo.js'
+
 import Deck from './CardDeck/CardDeck.js';
 import { initBg } from './Location/location.js';
 
@@ -116,6 +118,7 @@ import locations from '../background.json' assert { type: 'json' };
       .set("Horseshoe Crab", 0)
       .set("Octopus", 0)
       .set("Scuba Diver", 0)
+      .set("Slug", 0)  //Robert's Idea
 
     // Forest
 
@@ -130,6 +133,7 @@ import locations from '../background.json' assert { type: 'json' };
 
 async function playBackstory(app, CardDeck) {
   CardDeck.visible = true;
+  initInfo(app);        // this creates the areas for text to appear, but initCard will populate the text
   // let deck_name = "";
   
   const backstoryImage = cards.locations.backstory.bgImage;
