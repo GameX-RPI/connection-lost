@@ -14,6 +14,12 @@ import { initBg } from './Location/location.js';
 import cards from './CardDeck/cards.json' assert { type: 'json' };
 import locations from '../background.json' assert { type: 'json' };
 
+const loadFont = async (name, url) => {
+  const font = new FontFace(name, `url(${url})`);
+  await font.load();
+  document.fonts.add(font);
+};
+
 (async () => {
   const app = new PIXI.Application();
 
@@ -30,65 +36,50 @@ import locations from '../background.json' assert { type: 'json' };
 
   /* ---------- Text Styes ---------- */
 
-  const titleStyle = new PIXI.TextStyle({
-    fill: 0xffffff,
-    fontSize: 72,
-    fontFamily: 'Poppins',
-  });
+  Promise.all([
+    loadFont('Poppins', '../fonts/Poppins-Regular.ttf'),
+    loadFont('Poppins-Bold', '../fonts/Poppins-Bold.ttf')
+  ]).then(() => {
+    const titleStyle = new PIXI.TextStyle({
+      fill: 0xffffff,
+      fontSize: 72,
+      fontFamily: 'Poppins',
+    });
 
-  const playStyle = new PIXI.TextStyle({
-    fill: 0x000000,
-    fontSize: 30,
-    fontFamily: 'Poppins',
-  });
+    const playStyle = new PIXI.TextStyle({
+      fill: 0x000000,
+      fontSize: 30,
+      fontFamily: 'Poppins',
+    });
 
-  /* ---------- Start Container ---------- */
+    /* ---------- Start Container ---------- */
 
-  const StartContainer = initStartContainer(app);
-  app.stage.addChild(StartContainer);
+    const StartContainer = initStartContainer(app);
+    app.stage.addChild(StartContainer);
 
-  /* ---------- Title Text ---------- */
+    /* ---------- Title Text ---------- */
 
-  const texts = initTitleText(app, titleStyle);
-  StartContainer.addChild(texts[0]);
-  StartContainer.addChild(texts[1]);
+    initTitleText(app, titleStyle);
 
-  /* ---------- Play Button ---------- */
+    /* ---------- Play Button ---------- */
 
-  const playButtonContainer = initPlayButtonContainer();
-  StartContainer.addChild(playButtonContainer);
+    const playButtonContainer = initPlayButtonContainer();
+    StartContainer.addChild(playButtonContainer);
 
-  const playButton = initPlayButton();
-  const playText = initPlayText(playStyle);
+    const playButton = initPlayButton();
+    const playText = initPlayText(playStyle);
 
-  playButtonContainer.addChild(playButton);
-  playButtonContainer.addChild(playText);
+    playButtonContainer.addChild(playButton);
+    playButtonContainer.addChild(playText);
 
-  /* --------Play Origin Story-------- */
+    /* --------Play Origin Story-------- */
 
-  // await initBg(app, 0);
+    // await initBg(app, 0);
 
-  // const CardDeck = Deck.initCardDeck();
-  // app.stage.addChild(CardDeck);
-  
-  // let deckSize = 60;
-  // startCardDeck(deckSize, app, CardDeck);
-  
-  /* ---------- Start Game Mouse Events ---------- */
-  
-  playButtonContainer.interactive = true;
-  
-  playButtonContainer.on('pointerover', () => {
-    app.canvas.style.cursor = 'pointer';
-  });
-  
-  playButtonContainer.on('pointerout', () => {
-    app.canvas.style.cursor = 'default';
-  });
-  
-  playButtonContainer.on('pointerdown', async () => {
-    app.stage.removeChild(StartContainer);
+    // const CardDeck = Deck.initCardDeck();
+    // app.stage.addChild(CardDeck);
     
+<<<<<<< Updated upstream
     let bg = await initBg(app, 0, null);
     
     const CardDeck = Deck.initCardDeck();
@@ -120,12 +111,66 @@ import locations from '../background.json' assert { type: 'json' };
     // Forest
 
     const trustLevels = new Map();
+=======
+    // let deckSize = 60;
+    // startCardDeck(deckSize, app, CardDeck);
+>>>>>>> Stashed changes
     
-    // const lostFriend = "";
+    /* ---------- Start Game Mouse Events ---------- */
+    
+    playButtonContainer.interactive = true;
+    
+    playButtonContainer.on('pointerover', () => {
+      app.canvas.style.cursor = 'pointer';
+    });
+    
+    playButtonContainer.on('pointerout', () => {
+      app.canvas.style.cursor = 'default';
+    });
+    
+    playButtonContainer.on('pointerdown', async () => {
+      app.stage.removeChild(StartContainer);
+      
+      const characterDepth = new Map()
+      // Town
+        .set("Shopkeeper Dwight", 0)
+        .set("Mayor Soren", 0)
+        .set("Cleric Raymond", 0)
+        .set("Bard Jamie", 0)
+        .set("Prisoner Mo", 0)
+        .set("Psychic", 0)
+        .set("Assassin", 0)
+        .set("Blacksmith Nakar", 0)
+        .set("Innkeeper Thalia", 0)
+        .set("Clockmaker Darwin", 0)
 
+<<<<<<< Updated upstream
     await playBackstory(app, CardDeck);
     gameLoop(app, CardDeck, characterDepth, trustLevels, 1);
   });
+=======
+        // Thalia, Lana, Blake, Darwin, Roach
+        // Falconer
+
+      // Ocean
+        .set("Mermaid ", 0)
+        .set("Reef Shark ", 0)
+        .set("Horseshoe Crab", 0)
+        .set("Octopus", 0)
+        .set("Scuba Diver", 0)
+        .set("Slug", 0)  //Robert's Idea
+
+      // Forest
+
+      const trustLevels = new Map();
+      
+      // const lostFriend = "";
+
+      await playBackstory(app);
+      gameLoop(app, characterDepth, trustLevels, 1);
+    });
+  })
+>>>>>>> Stashed changes
 })();
 
 async function playBackstory(app, CardDeck) {
