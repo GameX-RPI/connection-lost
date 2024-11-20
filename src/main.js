@@ -89,15 +89,35 @@ import locations from '../background.json' assert { type: 'json' };
   playButtonContainer.on('pointerdown', async () => {
     app.stage.removeChild(StartContainer);
     
-    await initBg(app, 0);
+    let bg = await initBg(app, 0, null);
     
     const CardDeck = Deck.initCardDeck();
     app.stage.addChild(CardDeck);
 
     const characterDepth = new Map()
-      .set("char1", 0)
-      .set("char2", 0)
-      .set("char3", 0)
+    // Town
+      .set("Shopkeeper Dwight", 0)
+      .set("Mayor Soren", 0)
+      .set("Cleric Raymond", 0)
+      .set("Bard Jamie", 0)
+      .set("Prisoner Mo", 0)
+      .set("Psychic", 0)
+      .set("Assassin", 0)
+      .set("Blacksmith Nakar", 0)
+      .set("Innkeeper Thalia", 0)
+      .set("Clockmaker Darwin", 0)
+
+      // Thalia, Lana, Blake, Darwin, Roach
+      // Falconer
+
+    // Ocean
+      .set("Mermaid ", 0)
+      .set("Reef Shark ", 0)
+      .set("Horseshoe Crab", 0)
+      .set("Octopus", 0)
+      .set("Scuba Diver", 0)
+
+    // Forest
 
     const trustLevels = new Map();
     
@@ -125,21 +145,39 @@ async function playBackstory(app, CardDeck) {
 async function gameLoop(app, CardDeck, characterDepth, trustLevels, locationID) {
   let gameOver = 0;
   await initBg(app, locationID);
+
+  // list of card IDs next to play
+  let cardChain = [];
+
   while (gameOver != 10) {
+
+    let cardToPlay;
     const location = locations.Backgrounds[locationID].BgName;
-    let availableCards = [];
-    for (const [key, value] of characterDepth) {
-      const availableCharacterCards = cards.locations[location].cards.filter(card => card.character === key && card.depth === value);
-      availableCards.push(...availableCharacterCards);
+    if (cardChain.length > 0) { // card to play is pre-determined by previous card
+      const chainID = cardChain.shift(); // removes first element returns it
+      cardToPlay = cards.locations[location].cards.filter(card => card.chain === chainID);
+      console.log(cardToPlay);
+    } else { // pick random card
+      let availableCards = [];
+      for (const [key, value] of characterDepth) {
+        const availableCharacterCards = cards.locations[location].cards.filter(card => card.character === key && card.depth === value);
+        availableCards.push(...availableCharacterCards);
+      }
+      cardToPlay = availableCards[Math.floor(Math.random() * availableCards.length)];
+  }
+    // console.log(cardToPlay);
+    if (!cardToPlay) {
+      console.log("No cards remaining.");
+      return;
     }
-    // console.log(availableCards);
-    const cardToPlay = availableCards[Math.floor(Math.random() * availableCards.length)];
     const card = await Deck.initCard(app, cardToPlay, CardDeck);
 
     characterDepth.set(card.character, characterDepth.get(card.character) + 1); // +1 character interaction
 
     const res = card.choice == 1 ? card.result1 : card.result2;
     trustLevels.set(card.character, (trustLevels.get(card.character) || 0) + res); // +/- character trust
+
+    cardToPlay.chain != -1 ? cardChain.push(cardToPlay.chain) : cardChain.length = 0; // append chain card ID or ensure empty chain list
 
     // CardDeck.addChild(card);
     gameOver++;

@@ -19,19 +19,46 @@ const Deck = {
       card.result1 = cardInfo.result1;
       card.result2 = cardInfo.result2;
 
-      const cardWidth = 300;
-      const cardHeight = 400;
+      const cardWidth = 200;
+      const cardHeight = 200;
       card.width = cardWidth;
       card.height = cardHeight;
 
       const startCardX = (app.screen.width - cardWidth) / 2;
       const startCardY = (app.screen.height - cardHeight) / 2;
 
-      const cardBG = new PIXI.Graphics();
-      cardBG.roundRect(startCardX, startCardY, cardWidth, cardHeight, 20);
-      cardBG.fill('0xC4A484');
-      card.addChild(cardBG);
+      const border = new PIXI.Graphics()
+         .roundRect(startCardX, startCardY, cardWidth, cardHeight, 20)
+         .fill('0xE3E3E3');
+      card.addChild(border);
 
+      await PIXI.Assets.load(cardInfo.image_file_path);
+      const character = PIXI.Sprite.from(cardInfo.image_file_path);
+      character.x = app.screen.width / 2 - character.width / 2;
+      character.y = app.screen.height / 2 - character.height / 2;
+      character.width = cardWidth;
+      character.height = cardHeight;
+      console.log(character.zIndex);
+
+      const cardMask = new PIXI.Graphics()
+         // .setStrokeStyle(5, 'black', 1)
+         // .roundRect(startCardX - 5, startCardY - 5, cardWidth + 10, cardHeight + 10, 20)
+         // .fill('0xB0B0B0');
+         .roundRect(startCardX, startCardY, cardWidth, cardHeight, 20)
+         .fill('0xC4A484');
+
+      // const border = new PIXI.Graphics();
+      // border.roundRect(-5, -5, cardWidth + 10, cardHeight + 10, 20);
+      // border.roundRect(0, 0, cardWidth, cardHeight, 20);
+      // border.position.copyFrom(character.position); // Align with the mask
+
+      character.zIndex = 2;
+      card.addChild(character);
+      card.addChild(cardMask);
+      // card.addChild(border);
+
+      // cardMask.position.copyFrom(character.position);
+      character.mask = cardMask;
 
       const overlay = new PIXI.Graphics();
       overlay.roundRect(startCardX, startCardY, cardWidth, cardHeight, 20);
@@ -39,17 +66,64 @@ const Deck = {
       overlay.visible = false;
       app.stage.addChild(overlay);
 
-      const content = new PIXI.Text({ text: cardInfo.dialogue, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 200, align: "center" } });
+      // const content = new PIXI.Text({ text: cardInfo.dialogue, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 200, align: "center" } });
 
+      // content.x = app.screen.width / 2 - content.width / 2;
+      // content.y = app.screen.height / 2 - content.height / 2 - 150;
+      // card.addChild(content);
+
+      const scenario = new PIXI.Graphics();
+      const width = 500;  
+      const height = 50;  
+      const x = app.stage.width / 2 - width / 2;
+      const y = 0;
+
+      scenario.roundRect(x - 5, y, width + 10, height + 5, 20);
+      scenario.rect(x - 5, y, width + 10, 20);
+      scenario.fill("0xB0B0B0");
+
+      scenario.roundRect(x, y, width, height, 20);
+      scenario.rect(x, y, width, 20);
+      scenario.fill("0xE3E3E3");
+
+      card.addChild(scenario);
+
+      const content = new PIXI.Text({ text: cardInfo.dialogue, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 500, align: "center" } });
       content.x = app.screen.width / 2 - content.width / 2;
-      content.y = app.screen.height / 2 - content.height / 2 - 150;
+      content.y = scenario.y + 5;
       card.addChild(content);
+      
+      // // //
 
-      await PIXI.Assets.load(cardInfo.image_file_path);
-      const character = PIXI.Sprite.from(cardInfo.image_file_path);
-      character.x = app.screen.width / 2 - character.width / 2;
-      character.y = app.screen.height / 2 - character.height / 2;
-      card.addChild(character);
+      const characterNameBox = new PIXI.Graphics();
+      const widthC = 100;  
+      const heightC = 40;  
+      const xC = app.stage.width / 2 - widthC / 2;
+      const yC = app.stage.height - heightC;
+
+      characterNameBox.roundRect(xC - 5, yC - 5, widthC + 10, heightC + 5, 20);
+      characterNameBox.rect(xC - 5, yC + heightC - 15, widthC + 10, 20);
+      characterNameBox.fill("0xB0B0B0");
+
+      characterNameBox.roundRect(xC, yC, widthC, heightC, 20);
+      characterNameBox.rect(xC, yC + heightC - 15, widthC, 20);
+      characterNameBox.fill("0xE3E3E3");
+
+      card.addChild(characterNameBox);
+
+      const characterName = new PIXI.Text({ text: cardInfo.character, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 500, align: "center" } });
+      characterName.x = app.screen.width / 2 - characterName.width / 2;
+      // characterName.x = app.screen.width / 2 - characterName.width / 2;
+      characterName.y = app.stage.height - heightC / 2 - 8;
+      card.addChild(characterName);
+
+      // app.ticker.add(() => {
+      //    characterNameBox.y -= 0.01;
+      //    if (characterNameBox.y == app.stage.height - heightC) {
+      //       return;
+      //    }
+      // });
+      
 
       /* *** */
 
@@ -145,7 +219,7 @@ const Deck = {
                ticker.start();
 
                const overlayText = new PIXI.Text({
-                  text: direction < 0 ? "Yes" : "No",
+                  text: direction < 0 ? card.response1 : card.response2,
                   style:
                   {
                      fontSize: 40,
@@ -162,7 +236,7 @@ const Deck = {
                   overlayText.y = app.screen.height / 2 - overlayText.width / 2;
                } else {
                   overlayText.angle -= 90;
-                  overlayText.x = app.screen.width / 2 - cardWidth / 2;
+                  overlayText.x = app.screen.width / 2 - cardWidth;
                   overlayText.y = app.screen.height / 2 + 20;
                }
                

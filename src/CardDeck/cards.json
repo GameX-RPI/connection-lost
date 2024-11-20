@@ -58,50 +58,60 @@
          "bgImage": "../../backgrounds/town.jpg",
          "cards": [
             {
+               "id": 0,
+               "chain": -1,
                "depth": 0,
-               "character": "char1",
+               "character": "Shopkeeper Dwight",
                "image_file_path": "../../textures/LostFriend.png",
-               "dialogue": "Character 1, Scenario 1",
+               "dialogue": "",
                "response1": "Yes",
                "response2": "No",
                "choice": 0,
-               "result1": -1,
-               "result2": 2
+               "result1": 0,
+               "result2": 0
             },
             {
-               "depth": 0,
-               "character": "char1",
+               "id": 1,
+               "chain": -1,
+               "depth": 1,
+               "character": "Shopkeeper Dwight",
                "image_file_path": "../../textures/LostFriend.png",
-               "dialogue": "Character 1, Scenario 2",
+               "dialogue": "Thieves raid my shop every night, and the mayor does nothing about it!",
+               "response1": "I'll talk to him",
+               "response2": "I don't care",
+               "choice": 0,
+               "result1": 0,
+               "result2": 0
+            },
+            {
+               "id": 2,
+               "chain": 3,
+               "depth": 0,
+               "character": "Prisoner Mo",
+               "image_file_path": "../../textures/LostFriend.png",
+               "dialogue": "Let me oouuutta here.",
                "response1": "Yes",
                "response2": "No",
                "choice": 0,
-               "result1": -3,
-               "result2": -1
+               "result1": 0,
+               "result2": 0
             },
             {
-               "depth": 0,
-               "character": "char2",
+               "id": 3,
+               "chain": -1,
+               "depth": 1,
+               "character": "Prisoner Mo",
                "image_file_path": "../../textures/LostFriend.png",
-               "dialogue": "Character 2, Scenario 1",
+               "dialogue": "",
                "response1": "Yes",
                "response2": "No",
                "choice": 0,
-               "result1": -1,
-               "result2": 3
+               "result1": 0,
+               "result2": 0
             },
             {
-               "depth": 0,
-               "character": "char2",
-               "image_file_path": "../../textures/LostFriend.png",
-               "dialogue": "Character 2, Scenario 2",
-               "response1": "Yes",
-               "response2": "No",
-               "choice": 0,
-               "result1": -1,
-               "result2": 1
-            },
-            {
+               "id": 4,
+               "chain": -1,
                "depth": 0,
                "character": "char3",
                "image_file_path": "../../textures/LostFriend.png",
@@ -113,6 +123,8 @@
                "result2": -1
             },
             {
+               "id": 5,
+               "chain": -1,
                "depth": 0,
                "character": "char3",
                "image_file_path": "../../textures/LostFriend.png",
@@ -129,6 +141,7 @@
          "bgImage": "../../backgrounds/Ocean.jpg",
          "cards": [
             {
+               "id": 0,
                "depth": 0,
                "character": "char2",
                "dialogue": "......",
