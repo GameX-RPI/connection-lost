@@ -4,7 +4,6 @@ const Deck = {
    //creates invisible box where cards will go
    initCardDeck() {
       const CardDeck = new PIXI.Container();
-      CardDeck.visible = false;
       return CardDeck;
    },
    //creates a card
@@ -72,50 +71,20 @@ const Deck = {
       // content.y = app.screen.height / 2 - content.height / 2 - 150;
       // card.addChild(content);
 
-      const scenario = new PIXI.Graphics();
-      const width = 500;  
-      const height = 50;  
-      const x = app.stage.width / 2 - width / 2;
-      const y = 0;
+      // UPDATING CARD INFO 
+      const heightC = 40; 
+      let scenarioInfo = app.stage.getChildByLabel("content");
+      scenarioInfo.text = cardInfo.dialogue;
+      scenarioInfo.x = app.screen.width / 2 - scenarioInfo.width / 2;
+      scenarioInfo.y = 5;
 
-      scenario.roundRect(x - 5, y, width + 10, height + 5, 20);
-      scenario.rect(x - 5, y, width + 10, 20);
-      scenario.fill("0xB0B0B0");
-
-      scenario.roundRect(x, y, width, height, 20);
-      scenario.rect(x, y, width, 20);
-      scenario.fill("0xE3E3E3");
-
-      card.addChild(scenario);
-
-      const content = new PIXI.Text({ text: cardInfo.dialogue, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 500, align: "center" } });
-      content.x = app.screen.width / 2 - content.width / 2;
-      content.y = scenario.y + 5;
-      card.addChild(content);
+      let characterName = app.stage.getChildByLabel("name");
+      characterName.text = cardInfo.character;   
+      characterName.x = app.screen.width / 2 - characterName.width / 2;
+      characterName.y = app.stage.height - heightC / 2 - 8;   
       
       // // //
-
-      const characterNameBox = new PIXI.Graphics();
-      const widthC = 100;  
-      const heightC = 40;  
-      const xC = app.stage.width / 2 - widthC / 2;
-      const yC = app.stage.height - heightC;
-
-      characterNameBox.roundRect(xC - 5, yC - 5, widthC + 10, heightC + 5, 20);
-      characterNameBox.rect(xC - 5, yC + heightC - 15, widthC + 10, 20);
-      characterNameBox.fill("0xB0B0B0");
-
-      characterNameBox.roundRect(xC, yC, widthC, heightC, 20);
-      characterNameBox.rect(xC, yC + heightC - 15, widthC, 20);
-      characterNameBox.fill("0xE3E3E3");
-
-      card.addChild(characterNameBox);
-
-      const characterName = new PIXI.Text({ text: cardInfo.character, style: { fontSize: 13, fill: 0x000000, wordWrap: true, wordWrapWidth: 500, align: "center" } });
-      characterName.x = app.screen.width / 2 - characterName.width / 2;
-      // characterName.x = app.screen.width / 2 - characterName.width / 2;
-      characterName.y = app.stage.height - heightC / 2 - 8;
-      card.addChild(characterName);
+      
 
       // app.ticker.add(() => {
       //    characterNameBox.y -= 0.01;
@@ -293,6 +262,7 @@ const Deck = {
          if ((direction > 0 && card.x > app.screen.width + card.width) ||
             (direction < 0 && card.x < -app.screen.width)) {
             app.ticker.remove(swipeOff);
+            
             app.stage.removeChild(card);
             app.stage.removeChild(overlay);
             // Optionally, create a new card or trigger an event here

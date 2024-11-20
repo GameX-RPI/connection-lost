@@ -8,6 +8,8 @@ import { initPlayButtonContainer } from './StartContainer/PlayButton/PlayButtonC
 import { initPlayButton } from './StartContainer/PlayButton/PlayButton.js';
 import { initPlayText } from './StartContainer/PlayButton/PlayText.js';
 
+import { initInfo } from './CardDeck/cardInfo.js'
+
 import Deck from './CardDeck/CardDeck.js';
 import { initBg } from './Location/location.js';
 
@@ -79,11 +81,11 @@ const loadFont = async (name, url) => {
     // const CardDeck = Deck.initCardDeck();
     // app.stage.addChild(CardDeck);
     
-<<<<<<< Updated upstream
     let bg = await initBg(app, 0, null);
     
     const CardDeck = Deck.initCardDeck();
     app.stage.addChild(CardDeck);
+
 
     const characterDepth = new Map()
     // Town
@@ -107,15 +109,12 @@ const loadFont = async (name, url) => {
       .set("Horseshoe Crab", 0)
       .set("Octopus", 0)
       .set("Scuba Diver", 0)
+      .set("Slug", 0)  //Robert's Idea
 
     // Forest
 
     const trustLevels = new Map();
-=======
-    // let deckSize = 60;
-    // startCardDeck(deckSize, app, CardDeck);
->>>>>>> Stashed changes
-    
+
     /* ---------- Start Game Mouse Events ---------- */
     
     playButtonContainer.interactive = true;
@@ -144,14 +143,6 @@ const loadFont = async (name, url) => {
         .set("Innkeeper Thalia", 0)
         .set("Clockmaker Darwin", 0)
 
-<<<<<<< Updated upstream
-    await playBackstory(app, CardDeck);
-    gameLoop(app, CardDeck, characterDepth, trustLevels, 1);
-  });
-=======
-        // Thalia, Lana, Blake, Darwin, Roach
-        // Falconer
-
       // Ocean
         .set("Mermaid ", 0)
         .set("Reef Shark ", 0)
@@ -170,12 +161,13 @@ const loadFont = async (name, url) => {
       gameLoop(app, characterDepth, trustLevels, 1);
     });
   })
->>>>>>> Stashed changes
 })();
 
-async function playBackstory(app, CardDeck) {
-  CardDeck.visible = true;
-  // let deck_name = "";
+async function playBackstory(app) {
+  await initBg(app, 0);
+  const CardDeck = Deck.initCardDeck();
+  app.stage.addChild(CardDeck);
+  initInfo(app);        // this creates the areas for text to appear, but initCard will populate the text
   
   const backstoryImage = cards.locations.backstory.bgImage;
   const backstoryCards = cards.locations.backstory.cards;
@@ -183,13 +175,17 @@ async function playBackstory(app, CardDeck) {
   for (let i = 0; i < backstoryCards.length; i++) {
     const backstoryCard = backstoryCards[i];
     const card = await Deck.initCard(app, backstoryCard, CardDeck);
-    // CardDeck.addChild(card);
   }
+
+  app.stage.removeChild(CardDeck)
 }
 
-async function gameLoop(app, CardDeck, characterDepth, trustLevels, locationID) {
+async function gameLoop(app, characterDepth, trustLevels, locationID) {
   let gameOver = 0;
   await initBg(app, locationID);
+  const CardDeck = Deck.initCardDeck();
+  app.stage.addChild(CardDeck);
+  initInfo(app);
 
   // list of card IDs next to play
   let cardChain = [];
@@ -209,6 +205,7 @@ async function gameLoop(app, CardDeck, characterDepth, trustLevels, locationID) 
         availableCards.push(...availableCharacterCards);
       }
       cardToPlay = availableCards[Math.floor(Math.random() * availableCards.length)];
+
   }
     // console.log(cardToPlay);
     if (!cardToPlay) {

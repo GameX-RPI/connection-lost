@@ -11,8 +11,13 @@ export async function initBg(app, id) {
     bg.height = app.screen.height;
     bg.alpha = 0;
     app.stage.addChild(bg);
-    app.ticker.add(() => {
+    const fadeIn = () => {
         bg.alpha += 0.01;
-        if (bg.alpha == 1) { return; }
-    });
+        if (bg.alpha >= 1) {
+            bg.alpha = 1; // Ensure alpha is precisely 1
+            app.ticker.remove(fadeIn); // Remove this specific ticker
+        }
+    };
+
+    app.ticker.add(fadeIn); // Start the fade-in
 }
