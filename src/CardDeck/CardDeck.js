@@ -4,7 +4,6 @@ const Deck = {
    //creates invisible box where cards will go
    initCardDeck() {
       const CardDeck = new PIXI.Container();
-      CardDeck.visible = false;
       return CardDeck;
    },
    //creates a card

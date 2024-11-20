@@ -91,11 +91,6 @@ import locations from '../background.json' assert { type: 'json' };
   playButtonContainer.on('pointerdown', async () => {
     app.stage.removeChild(StartContainer);
     
-    let bg = await initBg(app, 0, null);
-    
-    const CardDeck = Deck.initCardDeck();
-    app.stage.addChild(CardDeck);
-
     const characterDepth = new Map()
     // Town
       .set("Shopkeeper Dwight", 0)
@@ -126,15 +121,16 @@ import locations from '../background.json' assert { type: 'json' };
     
     // const lostFriend = "";
 
-    await playBackstory(app, CardDeck);
-    gameLoop(app, CardDeck, characterDepth, trustLevels, 1);
+    await playBackstory(app);
+    gameLoop(app, characterDepth, trustLevels, 1);
   });
 })();
 
-async function playBackstory(app, CardDeck) {
-  CardDeck.visible = true;
+async function playBackstory(app) {
+  await initBg(app, 0);
+  const CardDeck = Deck.initCardDeck();
+  app.stage.addChild(CardDeck);
   initInfo(app);        // this creates the areas for text to appear, but initCard will populate the text
-  // let deck_name = "";
   
   const backstoryImage = cards.locations.backstory.bgImage;
   const backstoryCards = cards.locations.backstory.cards;
@@ -142,13 +138,17 @@ async function playBackstory(app, CardDeck) {
   for (let i = 0; i < backstoryCards.length; i++) {
     const backstoryCard = backstoryCards[i];
     const card = await Deck.initCard(app, backstoryCard, CardDeck);
-    // CardDeck.addChild(card);
   }
+
+  app.stage.removeChild(CardDeck)
 }
 
-async function gameLoop(app, CardDeck, characterDepth, trustLevels, locationID) {
+async function gameLoop(app, characterDepth, trustLevels, locationID) {
   let gameOver = 0;
   await initBg(app, locationID);
+  const CardDeck = Deck.initCardDeck();
+  app.stage.addChild(CardDeck);
+  initInfo(app);
 
   // list of card IDs next to play
   let cardChain = [];
@@ -168,6 +168,7 @@ async function gameLoop(app, CardDeck, characterDepth, trustLevels, locationID) 
         availableCards.push(...availableCharacterCards);
       }
       cardToPlay = availableCards[Math.floor(Math.random() * availableCards.length)];
+
   }
     // console.log(cardToPlay);
     if (!cardToPlay) {
