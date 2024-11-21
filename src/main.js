@@ -81,7 +81,7 @@ const loadFont = async (name, url) => {
     // const CardDeck = Deck.initCardDeck();
     // app.stage.addChild(CardDeck);
     
-    let bg = await initBg(app, 0, null);
+    // let bg = await initBg(app, 0, null);
     
     const CardDeck = Deck.initCardDeck();
     app.stage.addChild(CardDeck);
