@@ -196,8 +196,7 @@ async function gameLoop(app, characterDepth, trustLevels, locationID) {
     const location = locations.Backgrounds[locationID].BgName;
     if (cardChain.length > 0) { // card to play is pre-determined by previous card
       const chainID = cardChain.shift(); // removes first element returns it
-      cardToPlay = cards.locations[location].cards.filter(card => card.chain === chainID);
-      console.log(cardToPlay);
+      cardToPlay = cards.locations[location].cards.filter(card => card.id === chainID)[0];
     } else { // pick random card
       let availableCards = [];
       for (const [key, value] of characterDepth) {
